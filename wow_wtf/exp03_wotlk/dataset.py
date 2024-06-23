@@ -92,7 +92,7 @@ def slugify(s: str) -> str:
     """
     将字符串转换成一个合法的 Python 变量名.
     """
-    return s.replace(" ", "_").replace("-", "_").replace("/", "__")
+    return s.replace(" ", "_").replace("-", "_").replace("/", "__").replace("\\", "__")
 
 
 def get_var_name(
