@@ -40,6 +40,7 @@ client_config = ClientConfigEnum.f_1920_1080_max_graphic_sound
 # ------------------------------------------------------------------------------
 # acc_user_interface
 # ------------------------------------------------------------------------------
+# The AccLvlMapping.make_many and CharLvlMapping.make_many are very helpful
 acc_user_interface = AccMap.make_many(all_accounts, AuiEnum.default)
 
 # ------------------------------------------------------------------------------

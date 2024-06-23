@@ -3,16 +3,28 @@
 import typing as T
 from ordered_set import OrderedSet
 
+
 def get_values(enum_class) -> OrderedSet:
     """
     Get all values from an enum class.
+
+    Example::
+
+        >>> class Color:
+        ...     RED = 1
+        ...     GREEN = 2
+        ...     BLUE = 3
+        >>> get_values(Color)
+        OrderedSet([1, 2, 3])
     """
     return OrderedSet(
         [v for k, v in enum_class.__dict__.items() if not k.startswith("_")]
     )
 
+
 KT = T.TypeVar("KT")
 VT = T.TypeVar("VT")
+
 
 def group_by(
     iterable: T.Iterable[VT],

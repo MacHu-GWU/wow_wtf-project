@@ -173,7 +173,7 @@ class BaseMapping:
 @dataclasses.dataclass
 class AccLvlMapping(BaseMapping):
     """
-    Account 和一个 WTF 配置文件模板的组合.
+    ``Account`` 和一个 WTF 配置文件模板的组合.
 
     :param acc: `wow_acc.api.Account <https://wow-acc.readthedocs.io/en/latest/wow_acc/model.html#wow_acc.model.Account>`_ 对象.
     :param file: WTF 配置文件模板的绝对路径.
@@ -189,7 +189,7 @@ class AccLvlMapping(BaseMapping):
         file: T.Union[Path, T.Iterable[Path]],
     ):
         """
-        生成多个 Account 和 WTF 配置文件模板的组合. 让你写更少的代码.
+        生成多个 ``Account`` 和 WTF 配置文件模板的组合. 让你写更少的代码.
 
         :param accounts: Account 对象集合.
         :param file: 单个文件或是多个文件的集合.
@@ -207,7 +207,7 @@ class AccLvlMapping(BaseMapping):
 @dataclasses.dataclass
 class CharLvlMapping(BaseMapping):
     """
-    Character 和一个 WTF 配置文件模板的组合.
+    ``Character`` 和一个 WTF 配置文件模板的组合.
 
     :param char: `wow_acc.api.Character <https://wow-acc.readthedocs.io/en/latest/wow_acc/model.html#wow_acc.model.Character>`_ 对象.
     :param file: WTF 配置文件模板的绝对路径.
@@ -223,7 +223,7 @@ class CharLvlMapping(BaseMapping):
         file: T.Union[Path, T.List[Path]],
     ):
         """
-        生成多个 Character 和 WTF 配置文件模板的组合. 让你写更少的代码.
+        生成多个 ``Character`` 和 WTF 配置文件模板的组合. 让你写更少的代码.
 
         :param characters: Character 对象集合.
         :param file: 单个文件或是多个文件的集合.
@@ -269,8 +269,10 @@ class WtfMapping:
     定义了一个魔兽世界客户端中被管理的所有 WTF 配置文件的设定.
 
     :param client: :class:`Client` 对象. 有了这个才知道我们要将配置文件写到哪里去.
-    :param all_accounts: 所有的 Account 对象. 在 render Jinja 模板时会用到.
-    :param all_characters: 所有的 Character 对象. 在 render Jinja 模板时会用到.
+    :param all_accounts: 所有的 `wow_acc.api.Account <https://wow-acc.readthedocs.io/en/latest/wow_acc/model.html#wow_acc.model.Account>`_ 对象.
+        在 render Jinja 模板时会用到.
+    :param all_characters: 所有的 `wow_acc.api.Character <https://wow-acc.readthedocs.io/en/latest/wow_acc/model.html#wow_acc.model.Character>`_ 对象.
+        在 render Jinja 模板时会用到.
     :param client_config: :meth:`Client.client_config`.
     :param acc_user_interface: :meth:`Client.get_account_config_cache_wtf`.
     :param acc_macros: :meth:`Client.get_account_macros_cache_txt`.

@@ -10,10 +10,8 @@ sub packages and modules
 .. toctree::
     :maxdepth: 1
 
+    exp03_wotlk <exp03_wotlk/__init__>
     api <api>
-    exp03_wotlk <exp03_wotlk>
-    exp03_wotlk_dataset <exp03_wotlk_dataset>
-    exp03_wotlk_mapping <exp03_wotlk_mapping>
     logger <logger>
     utils <utils>
     
