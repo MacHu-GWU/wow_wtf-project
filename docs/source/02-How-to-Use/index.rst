@@ -63,6 +63,8 @@ How to Use
        :linenos:
 
 
+.. _generate-wtf-config-enum-module:
+
 3. Generate You WTF Config Enum Module
 ------------------------------------------------------------------------------
 和 :ref:`account-and-character-configuration` 类似, **我们也要将我们的配置文件数据转化成一个 Python 模块, 使得每一个配置文件都是一个 enum**.

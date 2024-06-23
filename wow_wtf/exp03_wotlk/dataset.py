@@ -150,7 +150,7 @@ def to_module(
         /{dir}/27_character_saved_variables
             ...
 
-    那么最终生成的 Python 模块请参考 TODO
+    那么最终生成的 Python 模块请参考 :ref:`generate-wtf-config-enum-module`
 
     :param dir: WTF 配置模板文件的根目录.
     """
@@ -158,8 +158,6 @@ def to_module(
         "# -*- coding: utf-8 -*-",
         "",
         "from pathlib_mate import Path",
-        "",
-        "dir_home = Path.home()",
         "",
         "# fmt: off",
         "",
@@ -174,8 +172,10 @@ def to_module(
         if len(paths):
             for path in paths:
                 var_name = get_var_name(dir_folder, path)
-                relpath = path.relative_to(dir_home)
-                lines.append(f'{tab}{var_name} = dir_home.joinpath("{relpath}") # file://{path}')
+                lines.append(f'{tab}{var_name} = Path("{path}") # file://{path}')
+                # this is not working well on Windows
+                # relpath = path.relative_to(dir_home)
+                # lines.append(f'{tab}{var_name} = dir_home.joinpath("{relpath}") # file://{path}')
         else:
             lines.append(f"{tab}pass")
         lines.append("")
