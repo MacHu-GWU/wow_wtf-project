@@ -8,7 +8,13 @@ How to Use
 
     - :mod:`wow_wtf.exp03_wotlk`
 
+.. note::
+
+    在 `wow_wtf/tests/exp03_wotlk <https://github.com/MacHu-GWU/wow_wtf-project/tree/main/wow_wtf/tests/exp03_wotlk>`_ 目录有一个完整的如何使用这个库项目来管理你的 WTF 配置的例子. 请在阅读本文时跟这个例子互相印证.
+
 
 1. Account and Character Configuration
 ------------------------------------------------------------------------------
 首先你要枚举你的账号和角色. 这部分的功能由另一个库 `wow_acc <https://pypi.org/project/wow-acc/>`_ 提供. 你可以参考 `这篇文档 <https://github.com/MacHu-GWU/wow_acc-project>`_ 来了解如何枚举你的账号和角色.
+
+
