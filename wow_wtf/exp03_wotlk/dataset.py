@@ -87,6 +87,7 @@ folder_list = [
 列出了所有 WTF 配置模板文件夹的规则.
 """
 
+
 def slugify(s: str) -> str:
     """
     将字符串转换成一个合法的 Python 变量名.
@@ -109,7 +110,7 @@ def get_var_name(
     """
     relpath = path.relative_to(dir)
     var_name = slugify(str(relpath)).split(".")[0]
-    if var_name[0].isalpha() is False: # 如果第一个字符不是字母, 那么加上一个 f_ (file)
+    if var_name[0].isalpha() is False:  # 如果第一个字符不是字母, 那么加上一个 f_ (file)
         var_name = "f_" + var_name
     return var_name
 
@@ -163,7 +164,6 @@ def to_module(
         "",
     ]
     tab = " " * 4
-    dir_home = Path.home()
     for folder in folder_list:
         dir_folder = dir / folder.name
         lines.append(f"class {folder.classname}Enum:")
@@ -172,10 +172,7 @@ def to_module(
         if len(paths):
             for path in paths:
                 var_name = get_var_name(dir_folder, path)
-                lines.append(f'{tab}{var_name} = Path("{path}") # file://{path}')
-                # this is not working well on Windows
-                # relpath = path.relative_to(dir_home)
-                # lines.append(f'{tab}{var_name} = dir_home.joinpath("{relpath}") # file://{path}')
+                lines.append(f'{tab}{var_name} = Path(r"{path}") # file://{path}')
         else:
             lines.append(f"{tab}pass")
         lines.append("")
