@@ -196,7 +196,7 @@ class BaseMapping:
         """
         Jinja template 对象. 它会被缓存下来以便复用.
         """
-        return Template(self.file.read_text())
+        return Template(self.file.read_text(encoding="utf-8"))
 
 
 @dataclasses.dataclass
@@ -286,10 +286,10 @@ def apply(
         logger.info(f"Write to: file://{path}")
     if real_run:
         try:
-            path.write_text(content)
+            path.write_text(content, encoding="utf-8")
         except FileNotFoundError:
             path.parent.mkdir(parents=True)
-            path.write_text(content)
+            path.write_text(content, encoding="utf-8")
 
 
 @dataclasses.dataclass
