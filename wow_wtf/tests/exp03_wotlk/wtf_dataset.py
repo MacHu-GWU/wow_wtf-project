@@ -9,4 +9,4 @@ if __name__ == "__main__":
         dir_root=dir_root,
         import_dir_root_line="from .wtf_dataset import dir_root",
     )
-    dir_root.joinpath("wtf_enum.py").write_text(content)
+    dir_root.joinpath("wtf_enum.py").write_text(content, encoding="utf-8")
