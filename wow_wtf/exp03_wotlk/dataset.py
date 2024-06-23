@@ -116,63 +116,70 @@ def get_var_name(
 
 
 def to_module(
-    dir: Path,
+    dir_root: Path,
+    import_dir_root_line: str,
 ) -> str:
     """
-    根据前面 ``folder_list`` 中的设定, 扫描 ``dir`` 文件夹下的所有文件, 生成一个
+    根据前面 ``folder_list`` 中的设定, 扫描 ``dir_root`` 文件夹下的所有文件, 生成一个
     Python 模块的字符串. 这个模块包含了所有的 WTF 模板文件的枚举.
 
     例如你有这样的文件结构:
 
     .. code-block::
 
-        /{dir}/01_client_config
+        /{dir_root}/01_client_config
             ...
-        /{dir}/11_account_user_interface
+        /{dir_root}/11_account_user_interface
             default.txt
             ...
-        /{dir}/12_account_macros
+        /{dir_root}/12_account_macros
             ...
-        /{dir}/13_account_saved_variables
+        /{dir_root}/13_account_saved_variables
             ...
-        /{dir}/21_character_user_interface
+        /{dir_root}/21_character_user_interface
             default.txt
             ...
-        /{dir}/22_character_chat
+        /{dir_root}/22_character_chat
             ...
-        /{dir}/23_character_keybindings
+        /{dir_root}/23_character_keybindings
             ...
-        /{dir}/24_character_layout
+        /{dir_root}/24_character_layout
             ...
-        /{dir}/25_character_addons
+        /{dir_root}/25_character_addons
             ...
-        /{dir}/26_character_macros
+        /{dir_root}/26_character_macros
             ...
-        /{dir}/27_character_saved_variables
+        /{dir_root}/27_character_saved_variables
             ...
 
     那么最终生成的 Python 模块请参考 :ref:`generate-wtf-config-enum-module`
 
-    :param dir: WTF 配置模板文件的根目录.
+    :param dir_root: WTF 配置模板文件的根目录.
+    :param import_dir_root_line: 这一行要导入一个 dir_root 对象, 也就是我们扫描的
+        WTF 配置模板文件的根目录. 用于里面的 enum 中的路径的拼接.
     """
     lines = [
         "# -*- coding: utf-8 -*-",
         "",
-        "from pathlib_mate import Path",
-        "",
+        f"{import_dir_root_line}",
         "# fmt: off",
         "",
     ]
     tab = " " * 4
     for folder in folder_list:
-        dir_folder = dir / folder.name
+        dir_folder = dir_root / folder.name
         lines.append(f"class {folder.classname}Enum:")
         paths = list(dir_folder.select_by_ext(folder.file_ext, recursive=True))
         paths.sort()
         if len(paths):
             for path in paths:
                 var_name = get_var_name(dir_folder, path)
-                lines.append(f'{tab}{var_name} = Path(r"{path}") # file://{path}')
+                relpath = path.relative_to(dir_root)
+                joinpath_arg = ", ".join([f'"{part}"' for part in relpath.parts])
+                dir_root.joinpath("{}")
+                lines.append(
+                    f"{tab}{var_name} = dir_root.joinpath({joinpath_arg}) # file://{path}"
+                )
         else:
             lines.append(f"{tab}pass")
         lines.append("")

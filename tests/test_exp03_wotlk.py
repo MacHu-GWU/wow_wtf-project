@@ -13,7 +13,10 @@ def test():
     )
     path.write_text(content)
 
-    content = exp03_wotlk.to_module(dir_here)
+    content = exp03_wotlk.to_module(
+        dir_here,
+        import_dir_root_line="from wow_wtf.tests.exp03_wotlk.wtf_dataset import dir_root",
+    )
     dir_here.joinpath("wtf_enum.py").write_text(content)
 
     from wow_wtf.tests.exp03_wotlk.wtf_mapping import wtf_mapping
