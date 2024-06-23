@@ -141,3 +141,44 @@ How to Use
     有些配置是无法通过回滚 WTF 文件来恢复的. 例如 macro 宏命令, 以及你的动作条数据在你每次进入游戏的时候会将数据保存在服务器端. 而如果你覆盖了原来的 macro 之后又登录游戏导致宏命令丢失或是动作条按钮丢失, 那么你即使回滚了 WTF 文件你再次登录游戏时也无法恢复到之前的状态.
 
     所以我个人不会用这个工具来管理 macros (虽然它可以), 我更倾向于用 SDM (SupderDopeMacro) 和 MySlots 这样的插件来管理我的宏命令和动作条.
+
+
+Manage Multiple Servers and Mappings
+------------------------------------------------------------------------------
+本节介绍了在你同时玩多个服务器的时候, 有多个客户端, 有多套人物角色和配置的组合的时候, 如何组织你的文件目录来管理数量庞大的 WTF 配置.
+
+首先我们要知道一些规范:
+
+- 用不同的客户端玩不同的服务器. 例如你在用一个客户端玩 2 个私服. 那么建议把你的游戏客户端拷贝一份, 每一个客户端玩不同的私服. 因为不同的私服的服务器名和游戏角色名可能会出现冲突.
+- 不要用多个 mapping 来分别管理一个账号下的不同角色. 举例来说, 你一个账号下有 10 个角色, 你用一套 mapping 管理其中的 5 个, 另一套 mapping 管理另外 5 个. 这样是不可以的. 因为很多插件的 lua 文件需要知道你账号下全部的角色名. 如果你切换到其中的 5 个, 那么另外 5 个角色名对于插件来说就是不可知的, 就会损害另外 5 个角色的配置.
+- 跟上一条对应, 你可以用多个 mapping 来管理一个服务器上的不同账号. 例如用一套 mapping 管理 5 个账号, 用另一套 mapping 管理另外 5 个账号, 这样做是可以的.
+
+根据这些规范, 我们可以创建下面的目录结构. 在 workspace 下的每一个子目录都应该是一套独立的 mapping. 子目录的文件夹名可以是 ``${server_name}_${description}``. 其中 ``server_name`` 是服务器的名字, ``description`` 是你这套 mapping 的描述. 而这些子目录的结构就跟 `exp03_wotlk <https://github.com/MacHu-GWU/wow_wtf-project/blob/main/wow_wtf/tests/exp03_wotlk/>`_ 目录下的结构一样了.
+
+.. code-block:: bash
+
+    workspace/
+    workspace/myserver1_mapping1/
+    workspace/myserver1_mapping1/01_client_config/
+    workspace/myserver1_mapping1/11_account_user_interface/
+    workspace/myserver1_mapping1/12_account_macros/
+    workspace/myserver1_mapping1/13_account_saved_variables/
+    workspace/myserver1_mapping1/21_character_user_interface/
+    workspace/myserver1_mapping1/22_character_chat/
+    workspace/myserver1_mapping1/23_character_keybindings/
+    workspace/myserver1_mapping1/24_character_layout/
+    workspace/myserver1_mapping1/25_character_addons/
+    workspace/myserver1_mapping1/26_character_macros/
+    workspace/myserver1_mapping1/27_character_saved_variables/
+    workspace/myserver1_mapping1/acc_dataset.py
+    workspace/myserver1_mapping1/acc_dataset.yml
+    workspace/myserver1_mapping1/acc_enum.py
+    workspace/myserver1_mapping1/README.rst
+    workspace/myserver1_mapping1/wtf_apply.py
+    workspace/myserver1_mapping1/wtf_dataset.py
+    workspace/myserver1_mapping1/wtf_enum.py
+    workspace/myserver1_mapping1/wtf_mapping.py
+    workspace/myserver1_mapping1/
+    workspace/myserver1_mapping2/
+    workspace/myserver2_mapping1/
+    workspace/myserver2_mapping2/
