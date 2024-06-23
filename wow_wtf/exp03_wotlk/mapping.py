@@ -19,7 +19,7 @@ from ..utils import group_by
 
 @dataclasses.dataclass
 class Client:
-    """
+    r"""
     代表着一个具体魔兽世界客户端. 你必须要制定这个客户端的目录. 然后就可以用各种 method 来
     获取对应的 WTF 配置文件的绝对路径了.
 
@@ -36,7 +36,7 @@ class Client:
 
     @property
     def client_config(self) -> Path:
-        """
+        r"""
         This file stores client level user interface configuration.
 
         Example: ``C:\...\WTF\Config.wtf``
@@ -44,13 +44,16 @@ class Client:
         return self.dir_wtf / "Config.wtf"
 
     def _get_acc_dir(self, account: "Account") -> Path:
-        """
+        r"""
         Example: ``C:\...\WTF\Account\MYACCOUNT``
         """
         return self.dir_wtf / "Account" / account.wtf_account_name
 
-    def get_account_config_cache_wtf(self, account: "Account") -> Path:
-        """
+    def get_account_config_cache_wtf(
+        self,
+        account: "Account",
+    ) -> Path:
+        r"""
         This file stores account level user interface configuration.
 
         Example: ``C:\...\WTF\Account\MYACCOUNT\config-cache.wtf``
@@ -58,9 +61,10 @@ class Client:
         return self._get_acc_dir(account) / "config-cache.wtf"
 
     def get_account_bindings_cache_wtf(
-        self, account: "Account"
+        self,
+        account: "Account",
     ) -> Path:  # pragma: no cover
-        """
+        r"""
         This file stores account level key bindings.
 
         Example: ``C:\...\WTF\Account\MYACCOUNT\bindings-cache.wtf``
@@ -68,17 +72,22 @@ class Client:
         return self._get_acc_dir(account) / "bindings-cache.wtf"
 
     def get_account_macros_cache_txt(
-        self, account: "Account"
+        self,
+        account: "Account",
     ) -> Path:  # pragma: no cover
-        """
+        r"""
         This file stores account level macro configurations.
 
         Example: ``C:\...\WTF\Account\MYACCOUNT\macros-cache.txt``
         """
         return self._get_acc_dir(account) / "macros-cache.txt"
 
-    def get_account_saved_variables(self, account: "Account", file: str) -> Path:
-        """
+    def get_account_saved_variables(
+        self,
+        account: "Account",
+        file: str,
+    ) -> Path:
+        r"""
         This file stores per AddOn account level saved variables.
 
         Example: ``C:\...\WTF\Account\MYACCOUNT\SavedVariables\AtlasLoot.lua``
@@ -86,7 +95,7 @@ class Client:
         return self._get_acc_dir(account) / "SavedVariables" / file
 
     def _get_char_dir(self, character: "Character") -> Path:
-        """
+        r"""
         Example: ``C:\...\WTF\Account\MYACCOUNT\MyServer\Mycharacter\``
         """
         return (
@@ -95,40 +104,55 @@ class Client:
             / character.titled_character_name
         )
 
-    def get_character_config_cache_wtf(self, character: "Character") -> Path:
-        """
+    def get_character_config_cache_wtf(
+        self,
+        character: "Character",
+    ) -> Path:
+        r"""
         This file stores character level user interface configuration.
 
         Example: ``C:\...\WTF\Account\MYACCOUNT\MyServer\Mycharacter\config-cache.wtf``
         """
         return self._get_char_dir(character) / "config-cache.wtf"
 
-    def get_character_chat_cache_txt(self, character: "Character") -> Path:
-        """
+    def get_character_chat_cache_txt(
+        self,
+        character: "Character",
+    ) -> Path:
+        r"""
         This file stores character level chat cache configuration.
 
         Example: ``C:\...\WTF\Account\MYACCOUNT\MyServer\Mycharacter\chat-cache.txt``
         """
         return self._get_char_dir(character) / "chat-cache.txt"
 
-    def get_character_bindings_cache_wtf(self, character: "Character") -> Path:
-        """
+    def get_character_bindings_cache_wtf(
+        self,
+        character: "Character",
+    ) -> Path:
+        r"""
         This file stores character level key bindings.
 
         Example: ``C:\...\WTF\Account\MYACCOUNT\MyServer\Mycharacter\bindings-cache.wtf``
         """
         return self._get_char_dir(character) / "config-cache.wtf"
 
-    def get_character_layout_local_txt(self, character: "Character") -> Path:
-        """
+    def get_character_layout_local_txt(
+        self,
+        character: "Character",
+    ) -> Path:
+        r"""
         This file stores character level UI layout configurations.
 
         Example: ``C:\...\WTF\Account\MYACCOUNT\MyServer\Mycharacter\layout-local.txt``
         """
         return self._get_char_dir(character) / "layout-local.txt"
 
-    def get_character_addons_txt(self, character: "Character") -> Path:
-        """
+    def get_character_addons_txt(
+        self,
+        character: "Character",
+    ) -> Path:
+        r"""
         This file stores character level UI AddOns enable / disable configurations.
 
         Example: ``C:\...\WTF\Account\MYACCOUNT\MyServer\Mycharacter\AddOns.txt``
@@ -136,17 +160,22 @@ class Client:
         return self._get_char_dir(character) / "AddOns.txt"
 
     def get_character_macros_cache_txt(
-        self, character: "Character"
+        self,
+        character: "Character",
     ) -> Path:  # pragma: no cover
-        """
+        r"""
         This file stores character level macro configurations.
 
         Example: ``C:\...\WTF\Account\MYACCOUNT\MyServer\Mycharacter\macros-cache.txt``
         """
         return self._get_char_dir(character) / "macros-cache.txt"
 
-    def get_character_saved_variables(self, character: "Character", file: str) -> Path:
-        """
+    def get_character_saved_variables(
+        self,
+        character: "Character",
+        file: str,
+    ) -> Path:
+        r"""
         This file stores per AddOn character level saved variables.
 
         Example: ``C:\...\WTF\Account\MYACCOUNT\MyServer\Mycharacter\SavedVariables\tlasLoot.lua``
@@ -244,7 +273,7 @@ def apply(
     real_run: bool = False,
     verbose: bool = True,
 ):
-    """
+    r"""
     Apply a content to a file (Write to the file in ``World of Warcraft\WTF\...``).
 
     :param path: The file path to write to.
