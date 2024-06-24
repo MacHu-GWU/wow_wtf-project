@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from .wtf_dataset import dir_root
+from wow_wtf.tests.exp03_wotlk.wtf_dataset import dir_root
 # fmt: off
 
 class ClientConfigEnum:

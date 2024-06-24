@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import typing as T
+import itertools
 from ordered_set import OrderedSet
 
 
@@ -29,7 +30,7 @@ VT = T.TypeVar("VT")
 def group_by(
     iterable: T.Iterable[VT],
     get_key: T.Callable[[VT], KT],
-) -> T.Dict[KT, T.List[VT]]:
+) -> T.Dict[KT, T.List[VT]]: # pragma: no cover
     """
     Group items by it's key, with type hint.
 
@@ -72,3 +73,15 @@ def group_by(
         except KeyError:
             grouped[key] = [item]
     return grouped
+
+
+def concat_lists(*lists) -> list:
+    """
+    Concatenate multiple lists into one list.
+
+    Example::
+
+        >>> concat_lists([1, 2], [3, 4], [5, 6])
+        [1, 2, 3, 4, 5, 6]
+    """
+    return list(itertools.chain(*lists))

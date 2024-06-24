@@ -47,6 +47,14 @@ How to Use
        :language: python
        :linenos:
 
+更进一步地, 你可以按照逻辑对这些账号和角色的 enum 进行分组, 这样在之后引用的时候就可以批量引用而不用一个个的手打了. `acc_group.py <https://github.com/MacHu-GWU/wow_wtf-project/blob/main/wow_wtf/tests/exp03_wotlk/acc_group.py>`_ 模块是一个很好的例子.
+
+.. dropdown:: wow_wtf/tests/exp03_wotlk/acc_group.py
+
+    .. literalinclude:: ../../../wow_wtf/tests/exp03_wotlk/acc_group.py
+       :language: python
+       :linenos:
+
 
 2. Craft Your WTF Config Template
 ------------------------------------------------------------------------------
@@ -85,6 +93,14 @@ How to Use
        :language: python
        :linenos:
 
+更进一步地, 你可以按照逻辑对这些 enum 进行分组, 这样在之后引用的时候就可以批量引用而不用一个个的手打了. `wtf_group.py <https://github.com/MacHu-GWU/wow_wtf-project/blob/main/wow_wtf/tests/exp03_wotlk/wtf_group.py>`_ 模块是一个很好的例子.
+
+.. dropdown:: wow_wtf/tests/exp03_wotlk/wtf_group.py
+
+    .. literalinclude:: ../../../wow_wtf/tests/exp03_wotlk/wtf_group.py
+       :language: python
+       :linenos:
+
 
 4. Define Your Account / Character and WTF Config Mapping
 ------------------------------------------------------------------------------
@@ -104,6 +120,7 @@ How to Use
 
 - :meth:`~wow_wtf.exp03_wotlk.mapping.AccLvlMapping.make_many` 和 :meth:`~wow_wtf.exp03_wotlk.mapping.CharLvlMapping.make_many` 方法可以方便地让你将多个账户或角色和多个配置文件建立映射关系.
 - :func:`~wow_wtf.utils.get_values` 方法可以方便地让你获得一个 enum 类的所有 member 的集合. 注意这里是集合, 也就是说你可以用 ``difference`` (取差异), ``intersection`` (取交集), ``union`` (取并集) 这些集合操作进行筛选.
+- :func:`~wow_wtf.utils.concat_lists` 方法可以方便地让你将多个 list 连接起来.
 
 
 5. Apply WTF Configuration

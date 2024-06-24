@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 
 from pathlib_mate import Path
-from wow_wtf.api import get_values, exp03_wotlk
+from wow_wtf.api import get_values, concat_lists, exp03_wotlk
 from wow_wtf.tests.exp03_wotlk.acc_enum import (
     AccountEnum as AccEnum,
     CharacterEnum as CharEnum,
+)
+from wow_wtf.tests.exp03_wotlk.acc_group import (
+    AccountGroupEnum as AccGrpEnum,
+    CharacterGroupEnum as CharGrpEnum,
 )
 from wow_wtf.tests.exp03_wotlk.wtf_enum import (
     ClientConfigEnum,
@@ -19,6 +23,10 @@ from wow_wtf.tests.exp03_wotlk.wtf_enum import (
     CharacterMacrosEnum as CmEnum,
     CharacterSavedVariablesEnum as CsvEnum,
 )
+from wow_wtf.tests.exp03_wotlk.wtf_group import (
+    AsvGroupEnum,
+    CsvGroupEnum,
+)
 
 Client = exp03_wotlk.Client
 AccMap = exp03_wotlk.AccLvlMapping
@@ -32,10 +40,20 @@ client = exp03_wotlk.Client(
     locale="enUS",
     dir=dir_game_client,
 )
-all_accounts = get_values(AccEnum)
-all_characters = get_values(CharEnum)
+all_accounts = AccGrpEnum.all_accounts
+all_characters = CharGrpEnum.all_characters
 
+# ==============================================================================
+# START of manual editing
+# ==============================================================================
+# ------------------------------------------------------------------------------
+# client_config
+# ------------------------------------------------------------------------------
+# client_config = ClientConfigEnum.f_1176_664_minimal_graphic_sound
+# client_config = ClientConfigEnum.f_1600_900_minimal_graphic_sound
 client_config = ClientConfigEnum.f_1920_1080_max_graphic_sound
+# client_config = ClientConfigEnum.f_1920_1080_minimal_graphic_sound
+# client_config = ClientConfigEnum.f_3840_2160_max_graphic_sound
 
 # ------------------------------------------------------------------------------
 # acc_user_interface
@@ -46,7 +64,7 @@ acc_user_interface = AccMap.make_many(all_accounts, AuiEnum.default)
 # ------------------------------------------------------------------------------
 # acc_saved_variables
 # ------------------------------------------------------------------------------
-acc_saved_variables = AccMap.make_many(all_accounts, get_values(AsvEnum))
+acc_saved_variables = AccMap.make_many(all_accounts, AsvGroupEnum.common)
 
 # ------------------------------------------------------------------------------
 # char_user_interface
@@ -77,51 +95,42 @@ char_layout = CharMap.make_many(all_characters, ClEnum.default)
 # ------------------------------------------------------------------------------
 # char_addons
 # ------------------------------------------------------------------------------
-mb_master_pala_chars = [
-    CharEnum.acc02_realm1_mypaladin,
-]
-mb_master_non_pala_chars = [
-    CharEnum.acc03_realm1_mydk,
-]
-mb_slave_pala_chars = []
-# 这个是最多的, 除了司机和圣骑士, 剩下的角色肯定是最多的
-mb_slave_non_pala_chars = all_characters.difference(
-    mb_master_pala_chars + mb_master_non_pala_chars + mb_slave_pala_chars
-)
-char_addons = (
+char_addons = concat_lists(
     CharMap.make_many(
-        mb_master_pala_chars,
+        CharGrpEnum.multiboxer_master_paladin,
         CaEnum.f_01_multiboxer_master_paladin,
-    )
-    + CharMap.make_many(
-        mb_master_non_pala_chars,
+    ),
+    CharMap.make_many(
+        CharGrpEnum.multiboxer_master_non_paladin,
         CaEnum.f_02_multiboxer_master_non_paladin,
-    )
-    + CharMap.make_many(
-        mb_slave_pala_chars,
+    ),
+    CharMap.make_many(
+        CharGrpEnum.multiboxer_slave_paladin,
         CaEnum.f_03_multiboxer_slave_paladin,
-    )
-    + CharMap.make_many(
-        mb_slave_non_pala_chars,
+    ),
+    CharMap.make_many(
+        CharGrpEnum.multiboxer_slave_non_paladin,
         CaEnum.f_04_multiboxer_slave_non_paladin,
-    )
+    ),
 )
 
 # ------------------------------------------------------------------------------
 # char_saved_variables
 # ------------------------------------------------------------------------------
-char_saved_variables = CharMap.make_many(
-    all_characters,
+char_saved_variables = concat_lists(
+    CharMap.make_many(
+        all_characters,
+        CsvGroupEnum.common,
+    ),
     [
-        CsvEnum.AtlasLoot,
-        CsvEnum.Atlas,
-        CsvEnum.Vendomatic,
+        CharMap(char=CharEnum.acc02_realm1_mypaladin, file=CsvEnum.paladin__Healbot),
+        CharMap(char=CharEnum.acc10_realm1_mypriest, file=CsvEnum.priest__Healbot),
     ],
-) + [
-    CharMap(char=CharEnum.acc02_realm1_mypaladin, file=CsvEnum.paladin__Healbot),
-    CharMap(char=CharEnum.acc10_realm1_mypriest, file=CsvEnum.priest__Healbot),
-]
+)
 
+# ==============================================================================
+# END of manual editing
+# ==============================================================================
 # ------------------------------------------------------------------------------
 # wtf_mapping
 # ------------------------------------------------------------------------------

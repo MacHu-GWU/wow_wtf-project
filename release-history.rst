@@ -15,6 +15,18 @@ x.y.z (Backlog)
 **Miscellaneous**
 
 
+0.2.1 (2024-06-23)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- Add the following public API:
+    - :func:`concat_lists <wow_wtf.utils.concat_lists>`
+
+**Minor Improvements**
+
+- Add ``acc_group.py`` and ``wtf_group.py`` to the example ``wow_wtf/tests/exp03_wotlk/`` directory.
+
+
 0.1.1 (2024-06-23)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - First release

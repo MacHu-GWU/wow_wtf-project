@@ -7,6 +7,7 @@ def test():
     _ = api
     _ = api.get_values
     _ = api.group_by
+    _ = api.concat_lists
     _ = api.logger
     _ = api.exp03_wotlk
 
