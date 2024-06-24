@@ -79,13 +79,14 @@ char_chat = CharMap.make_many(all_characters, CcEnum.default)
 # ------------------------------------------------------------------------------
 # char_keybinding
 # ------------------------------------------------------------------------------
-war_and_dk_chars = [
-    CharEnum.acc01_realm1_mywarrior,
-    CharEnum.acc03_realm1_mydk,
-]
-char_keybinding = CharMap.make_many(
-    all_characters.difference(war_and_dk_chars), CkEnum.default
-) + CharMap.make_many(war_and_dk_chars, CkEnum.warrior_and_dk)
+char_keybinding = concat_lists(
+    CharMap.make_many(
+        all_characters.difference(CharGrpEnum.warrior_and_dk), CkEnum.warrior_and_dk
+    ),
+    CharMap.make_many(
+        all_characters.difference(CharGrpEnum.non_warrior_and_dk), CkEnum.default
+    ),
+)
 
 # ------------------------------------------------------------------------------
 # char_layout
